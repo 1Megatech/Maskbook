@@ -8,14 +8,14 @@ export function getAllCoins() {
     throw new Error('For uniswap all coins are available by default.')
 }
 
-export function getAllCoinsByKeyword(keyword: string) {
+export async function getAllCoinsByKeyword(keyword: string) {
     return [] as Coin[]
 }
 
-export function getCoinInfo(id: string) {
+export async function getCoinInfo(id: string) {
     return {} as Coin
 }
 
-export function getPriceStats(id: string, coinId: string) {
+export async function getPriceStats(id: string, coinId: string) {
     return []
 }
