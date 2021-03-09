@@ -42,6 +42,7 @@ import {
 import { CoinMenu, CoinMenuOption } from './CoinMenu'
 import { useValueRef } from '../../../../utils/hooks/useValueRef'
 import { useTransakAllowanceCoin } from '../../../Transak/hooks/useTransakAllowanceCoin'
+import { useCoinLatestPriceInfo } from '../../trending/useCoinLatestPrice'
 
 const useStyles = makeStyles((theme) => {
     return createStyles({
@@ -211,6 +212,8 @@ export function TrendingViewDeck(props: TrendingViewDeckProps) {
         return dataProvider === DataProvider.UNISWAP ? x.value === TradeProvider.ZRX : true
     })
 
+    const { latestPrice, latestPrice_1h_percentage } = useCoinLatestPriceInfo(trending?.coin.id, trending?.dataProvider)
+
     return (
         <TrendingCard {...TrendingCardProps}>
             <CardHeader
@@ -277,7 +280,7 @@ export function TrendingViewDeck(props: TrendingViewDeckProps) {
                                     <span>
                                         {formatCurrency(
                                             (dataProvider === DataProvider.COIN_MARKET_CAP
-                                                ? last(stats)?.[1] ?? market.current_price
+                                                ? latestPrice ?? last(stats)?.[1] ?? market.current_price
                                                 : market.current_price) ?? 0,
                                             currency.symbol,
                                         )}
@@ -287,7 +290,12 @@ export function TrendingViewDeck(props: TrendingViewDeckProps) {
                                 <span>{t('plugin_trader_no_data')}</span>
                             )}
                             <PriceChanged
-                                amount={market?.price_change_percentage_1h ?? market?.price_change_percentage_24h ?? 0}
+                                amount={
+                                    latestPrice_1h_percentage ??
+                                    market?.price_change_percentage_1h ??
+                                    market?.price_change_percentage_24h ??
+                                    0
+                                }
                             />
                         </Typography>
                     </>
