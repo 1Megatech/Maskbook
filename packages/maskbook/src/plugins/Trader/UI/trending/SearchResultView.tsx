@@ -165,15 +165,15 @@ export function SearchResultView(props: SearchResultViewProps) {
     const { coin, market, tickers } = trending
     const canSwap = !!trending.coin.eth_address || trending.coin.symbol.toLowerCase() === 'eth'
     const tabs = [
-        <Tab className={classes.tab} label={t('plugin_trader_tab_market')} />,
+        <Tab className={classes.tab} key="market" label={t('plugin_trader_tab_market')} />,
         dataProvider !== DataProvider.UNISWAP ? (
-            <Tab className={classes.tab} label={t('plugin_trader_tab_price')} />
+            <Tab className={classes.tab} key="price" label={t('plugin_trader_tab_price')} />
         ) : null,
         dataProvider !== DataProvider.UNISWAP ? (
-            <Tab className={classes.tab} label={t('plugin_trader_tab_exchange')} />
+            <Tab className={classes.tab} key="exchange" label={t('plugin_trader_tab_exchange')} />
         ) : null,
-        canSwap ? <Tab className={classes.tab} label={t('plugin_trader_tab_swap')} /> : null,
-        LBP ? <Tab className={classes.tab} label="LBP" /> : null,
+        canSwap ? <Tab className={classes.tab} key="swap" label={t('plugin_trader_tab_swap')} /> : null,
+        LBP ? <Tab className={classes.tab} label="LBP" key="lbp" /> : null,
     ].filter(Boolean)
     //#endregion
 
