@@ -307,7 +307,7 @@ export default async function (cli_env: Record<string, boolean> = {}, argv: { mo
     }
     function iOSWebExtensionShimHack(...path: string[]) {
         if (!target.iOS && !target.Android) return path
-        return [...path, src('./src/polyfill/permissions.js')]
+        return [...path, require.resolve('@dimensiondev/polyfill/permissions.js')]
     }
     function withBrowserPolyfill(...path: string[]) {
         if (target.iOS || target.runtimeEnv.target === 'firefox') return path
