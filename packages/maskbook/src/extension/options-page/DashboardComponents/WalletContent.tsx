@@ -28,6 +28,7 @@ import { Flags } from '../../../utils/flags'
 import { ElectionTokenAlbum } from '../../../plugins/Election2020/UI/ElectionTokenAlbum'
 import { TokenAlbum as COTM_TokenAlbum } from '../../../plugins/COTM/UI/TokenAlbum'
 import { useChainIdValid } from '../../../web3/hooks/useChainState'
+import { TransactionList } from './TransactionList'
 
 const useStyles = makeStyles((theme) =>
     createStyles({
@@ -140,6 +141,7 @@ export const WalletContent = forwardRef<HTMLDivElement, WalletContentProps>(func
                         onChange={onTabChange}>
                         <Tab label={t('dashboard_tab_token')}></Tab>
                         <Tab label={t('dashboard_tab_collectibles')}></Tab>
+                        <Tab label={t('dashboard_tab_transactions')}></Tab>
                     </Tabs>
                 </Box>
 
@@ -188,6 +190,7 @@ export const WalletContent = forwardRef<HTMLDivElement, WalletContentProps>(func
                 ) : null}
                 {Flags.COTM_enabled && tabIndex === 1 ? <COTM_TokenAlbum /> : null}
                 {Flags.election2020_enabled && tabIndex === 1 ? <ElectionTokenAlbum /> : null}
+                {tabIndex === 2 ? <TransactionList /> : null}
             </Box>
 
             {!xsMatched ? (
