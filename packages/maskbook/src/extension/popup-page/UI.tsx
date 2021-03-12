@@ -7,7 +7,7 @@ import { ThemeProvider, makeStyles, Theme, withStyles, StylesProvider, jssPreset
 import { Button, Paper, Divider, Typography, Box } from '@material-ui/core'
 import { useMaskbookTheme } from '../../utils/theme'
 import { ChooseIdentity } from '../../components/shared/ChooseIdentity'
-import { getActivatedUI } from '../../social-network/ui'
+import { activatedSocialNetworkUI } from '../../social-network-next'
 import { useI18N } from '../../utils/i18n-next-ui'
 import { useValueRef } from '../../utils/hooks/useValueRef'
 import { delay } from '../../utils/utils'
@@ -74,7 +74,7 @@ function PopupUI() {
     const { t } = useI18N()
     const classes = useStyles()
 
-    const ui = getActivatedUI()
+    const ui = activatedSocialNetworkUI
     const identities = useValueRef(ui.myIdentitiesRef)
 
     const { value: hasPermission = true, retry: checkPermission } = useAsyncRetry(ui.hasPermission)

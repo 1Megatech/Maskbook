@@ -12,15 +12,15 @@ import { InitAutonomousStateFriends } from '../../social-network-next/defaults/I
 import { InitAutonomousStateProfiles } from '../../social-network-next/defaults/InitAutonomousStateProfiles'
 import { injectCompositionFacebook } from './injection/Composition'
 import { injectSetupPromptFacebook } from './injection/SetupPrompt'
-import { injectPostCommentsDefault } from '../../social-network/defaults/injectComments'
+import { injectPostCommentsDefault } from '../../social-network-next/defaults/Comments'
 import { pasteToCommentBoxFacebook } from './automation/pasteToCommentBoxFacebook'
-import { injectCommentBoxDefaultFactory } from '../../social-network/defaults/injectCommentBox'
+import { injectCommentBoxDefaultFactory } from '../../social-network-next/defaults/CommentBox'
 import { injectPostInspectorFacebook } from './injection/PostInspector'
-import { injectPageInspectorDefault } from '../../social-network/defaults/injectPageInspector'
 import { profilesCollectorFacebook } from './collecting/profiles'
 import { PostProviderFacebook } from './collecting/posts'
-import { createTaskStartSetupGuideDefault } from '../../social-network/defaults/taskStartSetupGuideDefault'
-import { pasteImageToCompositionDefault } from '../../social-network-next/defaults/pasteImageToComposition'
+import { pasteImageToCompositionDefault } from '../../social-network-next/defaults/PasteImageToComposition'
+import { injectPageInspectorDefault } from '../../social-network-next/defaults/PageInspector'
+import { createTaskStartSetupGuideDefault } from '../../social-network-next/defaults/StartSetupGuide'
 
 const origins = ['https://www.facebook.com/*', 'https://m.facebook.com/*']
 const facebookUI: SocialNetworkUI.Definition = {
@@ -54,9 +54,7 @@ const facebookUI: SocialNetworkUI.Definition = {
         },
         maskCompositionDialog: { open: taskOpenComposeBoxFacebook },
         nativeCompositionDialog: {
-            appendText(text, recover) {
-                pasteTextToCompositionFacebook(text, { autoPasteFailedRecover: !!recover })
-            },
+            appendText: pasteTextToCompositionFacebook,
             // TODO: make a better way to detect
             attachImage: pasteImageToCompositionDefault(() => false),
         },
@@ -103,9 +101,7 @@ const facebookUI: SocialNetworkUI.Definition = {
         },
         postInspector: (s, c) => injectPostInspectorFacebook(c, s),
         pageInspector: injectPageInspectorDefault(),
-        startSetupWizard(for_) {
-            createTaskStartSetupGuideDefault(facebookBase.networkIdentifier)
-        },
+        startSetupWizard: createTaskStartSetupGuideDefault(facebookBase.networkIdentifier),
     },
 }
 export default facebookUI

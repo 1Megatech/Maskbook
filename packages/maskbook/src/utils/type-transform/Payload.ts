@@ -1,6 +1,6 @@
 import type { SocialNetworkWorkerAndUI } from '../../social-network/shared'
 import { isNil } from 'lodash-es'
-import { definedSocialNetworkWorkers } from '../../social-network/worker'
+import { definedSocialNetworkWorkers } from '../../social-network-next/worker'
 import { isEnvironment, Environment } from '@dimensiondev/holoflows-kit'
 import { safeGetActiveUI } from '../safeRequire'
 import { i18n } from '../i18n-next'

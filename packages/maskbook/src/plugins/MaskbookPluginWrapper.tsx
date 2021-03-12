@@ -1,5 +1,5 @@
 import { makeStyles, Typography, ThemeProvider, SnackbarContent } from '@material-ui/core'
-import { getActivatedUI } from '../social-network/ui'
+import { activatedSocialNetworkUI } from '../social-network-next'
 import { MaskbookIcon } from '../resources/MaskbookIcon'
 import { Suspense } from 'react'
 
@@ -10,7 +10,7 @@ interface PluginWrapperProps {
 }
 
 const useStyles = makeStyles((theme) => {
-    const network = getActivatedUI()?.networkIdentifier
+    const network = activatedSocialNetworkUI?.networkIdentifier
     return {
         card: {
             marginTop: theme.spacing(1),
@@ -53,7 +53,7 @@ export default function MaskbookPluginWrapper(props: PluginWrapperProps) {
     const { pluginName, children } = props
     return (
         <Suspense fallback={<SnackbarContent message="Mask is loading this plugin..." />}>
-            <ThemeProvider theme={getActivatedUI().useTheme()}>
+            <ThemeProvider theme={activatedSocialNetworkUI.useTheme()}>
                 <div className={classes.card} onClick={(ev) => ev.stopPropagation()}>
                     <div className={classes.header}>
                         <MaskbookIcon className={classes.icon}></MaskbookIcon>

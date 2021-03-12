@@ -1,5 +1,5 @@
 import type { Persona } from '../../../database'
-import { definedSocialNetworkWorkers } from '../../../social-network/worker'
+import { definedSocialNetworkWorkers } from '../../../social-network-next/worker'
 
 import ProviderLine, { ProviderLineProps } from './ProviderLine'
 import getCurrentNetworkUI from '../../../social-network/utils/getCurrentNetworkUI'

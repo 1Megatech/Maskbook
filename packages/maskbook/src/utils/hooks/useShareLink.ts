@@ -1,7 +1,7 @@
-import { getActivatedUI } from '../../social-network/ui'
+import { activatedSocialNetworkUI } from '../../social-network-next'
 
 export function useShareLink(message: string) {
-    switch (getActivatedUI()?.networkIdentifier) {
+    switch (activatedSocialNetworkUI?.networkIdentifier) {
         case 'twitter.com':
             return `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`
         case 'facebook.com':

@@ -1,4 +1,4 @@
-import { defineSocialNetworkUI, definedSocialNetworkUIs } from '../../social-network/ui'
+import { defineSocialNetworkUI, definedSocialNetworkUIs } from '../../social-network-next'
 import '../../provider.ui'
 import { emptyDefinition } from '../../social-network/defaults/emptyDefinition'
 import { isEnvironment, Environment, ValueRef } from '@dimensiondev/holoflows-kit'

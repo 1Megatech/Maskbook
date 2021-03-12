@@ -1,4 +1,4 @@
-import type { ImageTemplateTypes } from '../../social-network/ui'
+import type { ImageTemplateTypes } from '../../social-network-next'
 
 export const ImagePayloadURLs: Readonly<Record<ImageTemplateTypes, string>> = {
     v1: new URL('./normal/payload-v1.png', import.meta.url).toString(),

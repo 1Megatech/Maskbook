@@ -21,12 +21,12 @@ import { i18NOverwriteTwitter } from './customization/i18n'
 import { injectToolbarAtTwitter } from './injection/Toolbar'
 import { injectSearchResultBoxAtTwitter } from './injection/SearchResult'
 import { injectPostReplacerAtTwitter } from './injection/PostReplacer'
-import { injectPageInspectorDefault } from '../../social-network/defaults/injectPageInspector'
+import { injectPageInspectorDefault } from '../../social-network-next/defaults/PageInspector'
 import { injectSetupPromptAtTwitter } from './injection/SetupPrompt'
 import { injectPostBoxComposed } from './injection/inject'
-import { createTaskStartSetupGuideDefault } from '../../social-network/defaults/taskStartSetupGuideDefault'
+import { createTaskStartSetupGuideDefault } from '../../social-network-next/defaults/StartSetupGuide'
 import { injectMaskUserBadgeAtTwitter } from './injection/MaskbookIcon'
-import { pasteImageToCompositionDefault } from '../../social-network-next/defaults/pasteImageToComposition'
+import { pasteImageToCompositionDefault } from '../../social-network-next/defaults/PasteImageToComposition'
 
 const origins = ['https://www.twitter.com/*', 'https://m.twitter.com/*']
 const twitterUI: SocialNetworkUI.Definition = {
@@ -46,9 +46,7 @@ const twitterUI: SocialNetworkUI.Definition = {
         },
         nativeCommentBox: undefined,
         nativeCompositionDialog: {
-            appendText(content, opts) {
-                pasteTextToCompositionTwitter(content, { autoPasteFailedRecover: !!opts?.recover })
-            },
+            appendText: pasteTextToCompositionTwitter,
             // TODO: make a better way to detect
             attachImage: pasteImageToCompositionDefault(() => false),
         },

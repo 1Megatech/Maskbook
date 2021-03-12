@@ -5,7 +5,7 @@ import { useCallback, useEffect } from 'react'
 import { useStylesExtends } from '../../../components/custom-ui-helper'
 import { usePostLink } from '../../../components/DataSource/usePostInfo'
 import ActionButton from '../../../extension/options-page/DashboardComponents/ActionButton'
-import { getActivatedUI } from '../../../social-network/ui'
+import { activatedSocialNetworkUI } from '../../../social-network-next'
 import { useRemoteControlledDialog } from '../../../utils/hooks/useRemoteControlledDialog'
 import { useShareLink } from '../../../utils/hooks/useShareLink'
 import { TransactionStateType } from '../../../web3/hooks/useTransactionState'
@@ -73,7 +73,7 @@ export function ITO_Card(props: ITO_CardProps) {
     //#endregion
 
     //#region transaction dialog
-    const cashTag = getActivatedUI()?.networkIdentifier === 'twitter.com' ? '$' : ''
+    const cashTag = activatedSocialNetworkUI?.networkIdentifier === 'twitter.com' ? '$' : ''
     const postLink = usePostLink()
     const shareLink = useShareLink(
         [

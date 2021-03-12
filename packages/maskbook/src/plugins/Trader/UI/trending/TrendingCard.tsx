@@ -1,9 +1,9 @@
 import { Card, createStyles, makeStyles } from '@material-ui/core'
 import { useStylesExtends } from '../../../../components/custom-ui-helper'
-import { getActivatedUI } from '../../../../social-network/ui'
+import { activatedSocialNetworkUI } from '../../../../social-network-next'
 
 const useStyles = makeStyles((theme) => {
-    const internalName = getActivatedUI()?.name
+    const internalName = activatedSocialNetworkUI?.name
     return createStyles({
         root: {
             width: 450,

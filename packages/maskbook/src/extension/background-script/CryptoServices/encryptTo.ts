@@ -5,7 +5,7 @@ import { constructAlpha38, PayloadLatest } from '../../../utils/type-transform/P
 import { queryPrivateKey, queryLocalKey } from '../../../database'
 import { ProfileIdentifier, PostIVIdentifier, GroupIdentifier } from '../../../database/type'
 import { prepareRecipientDetail } from './prepareRecipientDetail'
-import { getNetworkWorker } from '../../../social-network/worker'
+import { getNetworkWorker } from '../../../social-network-next/worker'
 import { createPostDB } from '../../../database/post'
 import { queryPersonaByProfileDB } from '../../../database/Persona/Persona.db'
 import { compressSecp256k1Key } from '../../../utils/type-transform/SECP256k1-Compression'

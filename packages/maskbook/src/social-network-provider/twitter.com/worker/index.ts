@@ -1,4 +1,4 @@
-import { defineSocialNetworkWorker } from '../../../social-network/worker'
+import { defineSocialNetworkWorker } from '../../../social-network-next/worker'
 import { sharedSettings } from '../index'
 import { fetchPostContent, fetchProfile } from './fetch'
 

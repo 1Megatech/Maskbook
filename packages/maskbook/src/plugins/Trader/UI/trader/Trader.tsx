@@ -27,7 +27,7 @@ import { currentTradeProviderSettings } from '../../settings'
 import { useTradeCallback } from '../../trader/useTradeCallback'
 import { useTradeStateComputed } from '../../trader/useTradeStateComputed'
 import { useTokenBalance } from '../../../../web3/hooks/useTokenBalance'
-import { getActivatedUI } from '../../../../social-network/ui'
+import { activatedSocialNetworkUI } from '../../../../social-network-next'
 import { EthereumMessages } from '../../../Ethereum/messages'
 import Services from '../../../../extension/service'
 import { UST } from '../../constants'
@@ -229,7 +229,7 @@ export function Trader(props: TraderProps) {
     //#endregion
 
     //#region remote controlled transaction dialog
-    const cashTag = getActivatedUI()?.networkIdentifier === 'twitter.com' ? '$' : ''
+    const cashTag = activatedSocialNetworkUI?.networkIdentifier === 'twitter.com' ? '$' : ''
     const shareLink = useShareLink(
         trade && inputToken && outputToken
             ? [

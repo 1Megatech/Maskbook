@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useStylesExtends } from '../../../components/custom-ui-helper'
 import { usePostLink } from '../../../components/DataSource/usePostInfo'
 import { AirdropIcon } from '../../../resources/AirdropIcon'
-import { getActivatedUI } from '../../../social-network/ui'
+import { activatedSocialNetworkUI } from '../../../social-network-next'
 import { useRemoteControlledDialog } from '../../../utils/hooks/useRemoteControlledDialog'
 import { useShareLink } from '../../../utils/hooks/useShareLink'
 import { useAccount } from '../../../web3/hooks/useAccount'
@@ -108,7 +108,7 @@ export function AirdropClaimCard(props: AirdropClaimCardProps) {
     //#endregion
 
     //#region transaction dialog
-    const cashTag = getActivatedUI()?.networkIdentifier === 'twitter.com' ? '$' : ''
+    const cashTag = activatedSocialNetworkUI?.networkIdentifier === 'twitter.com' ? '$' : ''
     const postLink = usePostLink()
     const shareLink = useShareLink(
         [

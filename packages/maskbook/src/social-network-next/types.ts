@@ -1,5 +1,6 @@
 import type { ValueRef } from '@dimensiondev/holoflows-kit'
 import type {
+    Identifier,
     PersonaIdentifier,
     PostIdentifier,
     ProfileIdentifier,
@@ -10,7 +11,6 @@ import type { InjectedDialogProps } from '../components/shared/InjectedDialog'
 import type { Profile } from '../database'
 import type { TypedMessage } from '../protocols/typed-message'
 import type { PostInfo } from './PostInfo'
-import type { ProfileUI } from '../social-network/shared'
 import type { ObservableWeakMap } from '../utils/ObservableMapSet'
 
 // Don't define values in namespaces
@@ -20,6 +20,10 @@ export namespace SocialNetwork {
          * Return the homepage url. e.g.: https://www.twitter.com/
          */
         getHomePage?(): string
+        /**
+         * Return post URL from PostIdentifier
+         */
+        getPostURL(post: PostIdentifier<Identifier>): string | null
         /**
          * Is this username valid in this network
          */
@@ -185,6 +189,9 @@ export namespace SocialNetworkUI {
             /** @deprecated Seems we don't use it anymore. */
             getProfile?(): Promise<ProfileUI>
         }
+        export type ProfileUI = { bioContent: string }
+        export type IdentityResolved = Pick<Profile, 'identifier' | 'nickname' | 'avatar'>
+
         /** Resolve the information of who am I on the current network. */
         export interface IdentityResolveProvider {
             /**
@@ -194,7 +201,7 @@ export namespace SocialNetworkUI {
             /**
              * The account that user is using (may not in the database)
              */
-            readonly lastRecognized: ValueRef<Pick<Profile, 'identifier' | 'nickname' | 'avatar'>>
+            readonly lastRecognized: ValueRef<IdentityResolved>
             /**
              * Start to maintain the posts.
              * It should add new seen posts and remove gone posts.
@@ -270,7 +277,7 @@ export namespace SocialNetworkWorker {
      * A SocialNetworkWorker is running in the background page
      */
     export interface Definition extends SocialNetwork.Base, SocialNetwork.Shared, WorkerBase {
-        tasks?: Tasks
+        tasks: Tasks
     }
     export interface Tasks {
         /**
@@ -296,6 +303,6 @@ export namespace SocialNetworkWorker {
          * @param identifier The post id
          * @deprecated
          */
-        fetchProfile?(identifier: ProfileIdentifier): Promise<ProfileUI>
+        fetchProfile?(identifier: ProfileIdentifier): Promise<SocialNetworkUI.CollectingCapabilities.ProfileUI>
     }
 }

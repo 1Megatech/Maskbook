@@ -21,7 +21,7 @@ import type { Profile, Group } from '../../database'
 import { useFriendsList, useCurrentIdentity, useMyIdentities } from '../DataSource/useActivatedUI'
 import { currentImagePayloadStatus, debugModeSetting } from '../../settings/settings'
 import { useValueRef } from '../../utils/hooks/useValueRef'
-import { editActivatedPostMetadata, getActivatedUI } from '../../social-network/ui'
+import { editActivatedPostMetadata, activatedSocialNetworkUI } from '../../social-network-next'
 import Services from '../../extension/service'
 import { SelectRecipientsUI, SelectRecipientsUIProps } from '../shared/SelectRecipients/SelectRecipients'
 import { ClickableChip } from '../shared/SelectRecipients/ClickableChip'
@@ -231,7 +231,9 @@ export function PostDialogUI(props: PostDialogUIProps) {
                             )}
                             {showPostMetadata && (
                                 <DebugMetadataInspector
-                                    onNewMetadata={(meta) => (getActivatedUI().typedMessageMetadata.value = meta)}
+                                    onNewMetadata={(meta) =>
+                                        (activatedSocialNetworkUI.typedMessageMetadata.value = meta)
+                                    }
                                     onExit={() => setShowPostMetadata(false)}
                                     meta={props.postContent.meta || new Map()}
                                 />
@@ -270,7 +272,10 @@ export function PostDialog({ reason: props_reason = 'timeline', ...props }: Post
     const onlyMyself = props.onlyMyself ?? onlyMyselfLocal
     const [shareToEveryoneLocal, setShareToEveryone] = useState(true)
     const shareToEveryone = props.shareToEveryone ?? shareToEveryoneLocal
-    const typedMessageMetadata = or(props.typedMessageMetadata, useValueRef(getActivatedUI().typedMessageMetadata))
+    const typedMessageMetadata = or(
+        props.typedMessageMetadata,
+        useValueRef(activatedSocialNetworkUI.typedMessageMetadata),
+    )
     const [open, setOpen] = or(props.open, useState<boolean>(false)) as NonNullable<PostDialogProps['open']>
 
     //#region TypedMessage
@@ -287,12 +292,12 @@ export function PostDialog({ reason: props_reason = 'timeline', ...props }: Post
     const [currentShareTarget, setCurrentShareTarget] = useState<(Profile | Group)[]>(() => [])
     //#endregion
     //#region Image Based Payload Switch
-    const imagePayloadStatus = useValueRef(currentImagePayloadStatus[getActivatedUI().networkIdentifier])
+    const imagePayloadStatus = useValueRef(currentImagePayloadStatus[activatedSocialNetworkUI.networkIdentifier])
     const imagePayloadEnabled = imagePayloadStatus === 'true'
     const onImagePayloadSwitchChanged = or(
         props.onImagePayloadSwitchChanged,
         useCallback((checked) => {
-            currentImagePayloadStatus[getActivatedUI().networkIdentifier].value = String(checked)
+            currentImagePayloadStatus[activatedSocialNetworkUI.networkIdentifier].value = String(checked)
         }, []),
     )
     //#endregion
@@ -307,7 +312,7 @@ export function PostDialog({ reason: props_reason = 'timeline', ...props }: Post
                     currentIdentity!.identifier,
                     !!shareToEveryone,
                 )
-                const activeUI = getActivatedUI()
+                const activeUI = activatedSocialNetworkUI
                 // TODO: move into the plugin system
                 const redPacketMetadata = RedPacketMetadataReader(typedMessageMetadata)
                 const election2020Metadata = Election2020MetadataReader(typedMessageMetadata)
@@ -382,7 +387,7 @@ export function PostDialog({ reason: props_reason = 'timeline', ...props }: Post
             setShareToEveryone(true)
             setPostBoxContent(makeTypedMessageText(''))
             setCurrentShareTarget([])
-            getActivatedUI().typedMessageMetadata.value = new Map()
+            activatedSocialNetworkUI.typedMessageMetadata.value = new Map()
         }, [setOpen]),
     )
     const onFinishButtonClicked = useCallback(() => {

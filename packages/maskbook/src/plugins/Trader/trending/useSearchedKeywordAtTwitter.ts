@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react'
-import { getActivatedUI } from '../../../social-network/ui'
+import { activatedSocialNetworkUI } from '../../../social-network-next'
 
 /**
  * Listing all possible pathnames start from /search that the search box will keep existing on twitter.
@@ -17,7 +17,7 @@ const SAFE_PATHNAMES_ON_TWITTER = [
 ]
 
 export function useSearchedKeywordAtTwitter() {
-    const internalName = getActivatedUI()?.name
+    const internalName = activatedSocialNetworkUI?.name
     const [keyword, setKeyword] = useState('')
 
     const onLocationChange = useCallback(() => {
